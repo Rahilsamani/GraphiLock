@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import CyberSecurity from "../assets/cyber-security.png";
 import { useNavigate } from "react-router-dom";
+import Logo from "../assets/logo2.png"
 
 const Footer = () => {
   const {
@@ -31,7 +31,7 @@ const Footer = () => {
       <div className="bg-[#3B3B3B] mt-24 py-10 flex justify-around flex-col sm:flex-row text-center md:text-start">
         <div className="ml-4 sm:ml-12 mt-6">
           <div className="flex justify-center md:justify-start">
-            <img className="" width="24px" src={CyberSecurity} alt="" />
+            <img className="" width="30px" src={Logo} alt="" />
             <p className="sm:text-xl text-white ml-2 font-['Space_Mono']">
               Graphical Password Auth
             </p>
