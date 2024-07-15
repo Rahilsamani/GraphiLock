@@ -9,6 +9,7 @@ import { nanoid } from "nanoid";
 import LoginImage from "../assets/login.webp";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Signup = () => {
   const [next, setNext] = useState(false);
@@ -163,6 +164,14 @@ const Signup = () => {
 
   function handleBackClick() {
     setNext(false);
+  }
+
+  if (loading) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   return (

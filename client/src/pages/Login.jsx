@@ -8,6 +8,7 @@ import { getNameByNumber } from "../utils/imageValidation";
 import BlockedBox from "../components/BlockedBox";
 import LoginImage from "../assets/login.webp";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Login = () => {
   const [next, setNext] = useState(false);
@@ -123,7 +124,11 @@ const Login = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   return (

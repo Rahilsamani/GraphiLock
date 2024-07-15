@@ -33,7 +33,7 @@ const Footer = () => {
           <div className="flex justify-center md:justify-start">
             <img className="" width="30px" src={Logo} alt="" />
             <p className="sm:text-xl text-white ml-2 font-['Space_Mono']">
-              Graphical Password Auth
+              GraphiLock
             </p>
           </div>
           <p className="text-gray-300 font-['Work_Sans'] mt-2 sm:mt-4">
