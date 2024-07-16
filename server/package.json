@@ -1,0 +1,16 @@
+{
+  "name": "graphilock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "rahil",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose-unique-validator": "^5.0.1",
+    "nodemon": "^3.1.4"
+  }
+}
