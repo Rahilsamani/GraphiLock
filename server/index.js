@@ -10,7 +10,7 @@ import { DigestRoutes } from "./routes/digest.js";
 import { router as contactRoutes } from "./routes/contact.js";
 import { router as imageRoutes } from "./routes/image.js";
 import { router as userRoutes } from "./routes/users.js";
-import { verify } from "./controllers/verify_token.js";
+import { verifyController } from "./controllers/verify_token.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -38,7 +38,7 @@ app.use("/api/image/", imageRoutes);
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/contact", contactRoutes);
 app.use("/api/digest", DigestRoutes);
-app.get("/api/verify", verify);
+app.get("/api/verify", verifyController);
 
 mongoose.set("strictQuery", true);
 

@@ -1,4 +1,4 @@
-import { digestModel } from "../models/digest.js";
+import digestModel from "../models/digest.js";
 
 const digestController = async (req, res) => {
   try {

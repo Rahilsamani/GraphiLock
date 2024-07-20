@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema(
       required: [true, "Sequence is required"],
     },
     sets: {
-      type: [[Schema.Types.Mixed]],
+      type: [[Object]],
       required: [true, "Sets are required"],
     },
     resetToken: {

@@ -1,4 +1,4 @@
-import { userModel as User } from "../models/user.js";
+import userModel from "../models/user.js";
 
 const check = async (req, res) => {
   const { username, email } = req.query;
@@ -12,7 +12,7 @@ const check = async (req, res) => {
 
   try {
     const query = username ? { username: username.toLowerCase() } : { email };
-    const user = await User.findOne(query);
+    const user = await userModel.findOne(query);
 
     return res.status(200).json({
       success: true,

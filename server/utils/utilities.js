@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { createApi } from "unsplash-js";
-import { userAttemptsModel } from "../models/user_attempts.js";
+import userAttemptsModel from "../models/user_attempts.js";
 import { transporter } from "./nodemailer.js";
 import dotenv from "dotenv";
 

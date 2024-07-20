@@ -1,8 +1,8 @@
 import * as dotenv from "dotenv";
-import { userModel as User } from "../models/user.js";
+import userModel from "../models/user.js";
 import jwt from "jsonwebtoken";
-import { checkArray } from "../util/util.js";
-import { userAttemptsModel } from "../models/user_attempts.js";
+import { checkArray } from "../utils/utilities.js";
+import userAttemptsModel from "../models/user_attempts.js";
 import { decryptData } from "../encryption.js";
 import nodemailer from "nodemailer";
 import twilio from "twilio";
@@ -74,7 +74,9 @@ const loginController = async (req, res) => {
       });
     }
 
-    const existingUser = await User.findOne({ username: lowerCaseUsername });
+    const existingUser = await userModel.findOne({
+      username: lowerCaseUsername,
+    });
 
     if (!existingUser) {
       return res.status(401).json({

@@ -1,8 +1,8 @@
 import express from "express";
-import { verify } from "../controllers/verify_token.js";
+import { verifyController } from "../controllers/verify_token.js";
 
 const router = express.Router();
 
-router.get("/", verify);
+router.get("/", verifyController);
 
 export { router as VerifyRoute };

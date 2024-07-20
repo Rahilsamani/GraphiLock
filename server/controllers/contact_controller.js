@@ -1,4 +1,4 @@
-import { contactFormatModel } from "../models/contact_format.js";
+import contactFormatModel from "../models/contact_format.js";
 
 const contactController = async (req, res) => {
   try {

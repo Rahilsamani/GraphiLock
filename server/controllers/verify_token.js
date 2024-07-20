@@ -1,6 +1,5 @@
-import { userModel } from "../models/user.js";
-import { userAttemptsModel } from "../models/user_attempts.js";
-import { commons, validation_messages as msg } from "../static/message.js";
+import userModel from "../models/user.js";
+import userAttemptsModel from "../models/user_attempts.js";
 import path from "path";
 
 const verify = async (req, res) => {
@@ -36,9 +35,12 @@ const verify = async (req, res) => {
       { attempts: 0, token: "" }
     );
 
-    res.sendFile(path.resolve("views/unblocked.html"));
+    return res.sendFile(path.resolve("views/unblocked.html"));
   } catch (err) {
-    res.status(500).json({ message: msg.search_err });
+    return res.status(500).json({
+      success: false,
+      message: "Error occured while searching, please try again later.",
+    });
   }
 };
 

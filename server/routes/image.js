@@ -1,10 +1,9 @@
 import express from "express";
-import { getByUser } from "../controllers/image.js";
-import { search as imageSearch } from "../controllers/image_search.js";
+import { search, getByUser } from "../controllers/imageController.js";
 
 const router = express.Router();
 
-router.get("/search", imageSearch);
+router.get("/search", search);
 router.get("/", getByUser);
 
 export { router };

@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
-import { userModel as User } from "../models/user.js";
+import userModel from "../models/user.js";
 import jwt from "jsonwebtoken";
-import { userAttemptsModel } from "../models/user_attempts.js";
+import userAttemptsModel from "../models/user_attempts.js";
 import { encryptData } from "../encryption.js";
 
 dotenv.config();
@@ -33,7 +33,7 @@ const signupController = async (req, res) => {
       });
     }
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await userModel.findOne({ email });
     if (existingUser) {
       return res
         .status(400)
@@ -45,7 +45,7 @@ const signupController = async (req, res) => {
       : `+91${phoneNumber}`;
     const encryptedPassword = encryptData(password);
 
-    const createdUser = new User({
+    const createdUser = new userModel({
       username: username.toLowerCase(),
       email,
       phoneNumber: formattedPhoneNumber,
