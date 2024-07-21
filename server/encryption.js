@@ -1,7 +1,11 @@
 import crypto from "crypto";
-import config from "./config.js";
+import dotenv from "dotenv";
 
-const { secret_key, secret_iv, encryption_method } = config;
+dotenv.config();
+
+const secret_key = process.env.SECRET_KEY;
+const secret_iv = process.env.SECRET_IV;
+const encryption_method = process.env.ENCRYPTION_METHOD;
 
 if (!secret_key || !secret_iv || !encryption_method) {
   throw new Error("secretKey, secretIV, and encryptionMethod are required");

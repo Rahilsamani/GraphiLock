@@ -16,7 +16,7 @@ const digestController = async (req, res) => {
     if (currentEmail) {
       return res
         .status(400)
-        .json({ success: false, message: "Already subscribed." });
+        .json({ success: false, message: "User Already Subscribed." });
     }
 
     const newEmail = new digestModel({ email });

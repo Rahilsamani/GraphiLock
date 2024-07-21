@@ -19,7 +19,7 @@ const contactController = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       success: false,
-      message: "Something Went Wrong While Saving Contact Message",
+      message: "Something Went Wrong While Sending Contact Message",
       error: err,
     });
   }

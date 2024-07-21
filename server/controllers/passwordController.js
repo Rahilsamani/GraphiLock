@@ -1,7 +1,7 @@
 import crypto from "crypto";
-import nodemailer from "nodemailer";
 import { userModel } from "../models/user.js";
 import { encryptData } from "../encryption.js";
+import { mailSender } from "../utils/nodemailer.js";
 
 const forgotPasswordController = async (req, res) => {
   try {
@@ -25,37 +25,20 @@ const forgotPasswordController = async (req, res) => {
     user.resetToken = resetToken;
     await user.save();
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.MAIL_HOST,
-      port: 587,
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
-      },
-    });
+    mailSender(
+      user.email,
+      "Password Reset",
+      `You requested a password reset. Use this token to reset your password: ${resetToken}`
+    );
 
-    const mailOptions = {
-      from: `GraphiLock <${process.env.MAIL_USER}>`,
-      to: user.email,
-      subject: "Password Reset",
-      text: `You requested a password reset. Use this token to reset your password: ${resetToken}`,
-    };
-
-    transporter.sendMail(mailOptions, (error) => {
-      if (error) {
-        console.error("Error sending email:", error);
-        return res
-          .status(500)
-          .json({ success: false, message: "Error sending email" });
-      }
-      return res
-        .status(200)
-        .json({ success: true, message: "Email sent successfully" });
+    return res.status(200).json({
+      success: true,
+      message: "Password Link Send On Email Successfully",
     });
   } catch (err) {
     return res.status(500).json({
       success: false,
-      message: "Something went wrong while changing password",
+      message: "Something went wrong while sending forget password link",
     });
   }
 };

@@ -1,58 +1,13 @@
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 import userModel from "../models/user.js";
 import jwt from "jsonwebtoken";
 import { checkArray } from "../utils/utilities.js";
 import userAttemptsModel from "../models/user_attempts.js";
 import { decryptData } from "../encryption.js";
-import nodemailer from "nodemailer";
-import twilio from "twilio";
+import { sendSMS } from "../utils/twilioSender.js";
+import { mailSender } from "../utils/nodemailer.js";
 
 dotenv.config();
-
-const transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-  },
-});
-
-const twilioClient = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
-
-const sendEmail = async (to, subject, html) => {
-  try {
-    const info = await transporter.sendMail({
-      from: `GraphiLock <${process.env.MAIL_USER}>`,
-      to,
-      subject,
-      html,
-    });
-    console.log("Email sent:", info.messageId);
-    return info;
-  } catch (error) {
-    console.error("Error sending email:", error.message);
-    throw error;
-  }
-};
-
-const sendSMS = async (to, message) => {
-  try {
-    const info = await twilioClient.messages.create({
-      body: message,
-      from: process.env.TWILIO_PHONE_NUMBER,
-      to,
-    });
-    console.log("SMS sent:", info.sid);
-    return info;
-  } catch (error) {
-    console.error("Error sending SMS:", error.message);
-    throw error;
-  }
-};
 
 const loginController = async (req, res) => {
   try {
@@ -67,7 +22,6 @@ const loginController = async (req, res) => {
     }
 
     if (pattern.length !== 3) {
-      console.log("Invalid pattern length:", pattern.length);
       return res.status(406).json({
         success: false,
         message: "Pattern must consist of 3 images",
@@ -96,7 +50,7 @@ const loginController = async (req, res) => {
       username: lowerCaseUsername,
     });
 
-    const MAX_ATTEMPTS = 3;
+    const MAX_ATTEMPTS = process.env.MAX_ATTEMPTS;
 
     const storedPassword = decryptData(String(existingUser.password));
     const isValidPassword = password === storedPassword;
@@ -117,6 +71,7 @@ const loginController = async (req, res) => {
 
       return res.status(200).json({
         success: true,
+        message: "User Logged In Successfully",
         username: existingUser.username,
         userId: existingUser.id,
         email: existingUser.email,
@@ -133,8 +88,9 @@ const loginController = async (req, res) => {
       );
 
       if (attempts >= MAX_ATTEMPTS) {
-        const emailContent = `Dear ${existingUser.username}, your account has been blocked due to multiple failed login attempts. Please contact support for assistance.`;
-        await sendEmail(
+        const emailContent = `Dear ${existingUser.username}, your account has been blocked due to multiple failed login attempts. Please Check Your Email Or SMS For The Account Recovery`;
+
+        await mailSender(
           existingUser.email,
           "Login Attempt Exceeded",
           emailContent
@@ -159,12 +115,11 @@ const loginController = async (req, res) => {
         .json({ success: false, message: "Invalid Credentials" });
     }
   } catch (error) {
-    console.error("Internal Server Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal Server Error",
+      message: "Something Went Wrong While Logging The User",
     });
   }
 };
 
-export { loginController, sendEmail, sendSMS };
+export { loginController };

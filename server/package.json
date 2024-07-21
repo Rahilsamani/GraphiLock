@@ -21,7 +21,6 @@
     "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.14",
     "nodemon": "^3.1.4",
-    "swagger-ui-express": "^5.0.1",
     "twilio": "^5.2.2",
     "unsplash-js": "^7.0.19"
   }

@@ -8,7 +8,7 @@ const search = async (req, res) => {
   if (!keyword) {
     return res.status(400).json({
       success: false,
-      message: "Please fill all the required fields",
+      message: "All The Fields Are Required",
     });
   }
 
@@ -38,29 +38,33 @@ const search = async (req, res) => {
       splitArrays.push(images.slice(i, i + 16));
     }
 
-    return res.json(splitArrays);
+    return res.json({
+      success: true,
+      message: "Images Fetched Successfully",
+      splitArrays,
+    });
   } catch (error) {
-    console.error("Error fetching images:", error);
     return res.status(500).json({
-      message: "Error fetching images from Unsplash",
+      success: false,
+      message: "Something Went Wrong While Fetching Images From Unsplash",
       error: error.message,
     });
   }
 };
 
-const getByUser = async (req, res) => {
-  let { username } = req.query;
-
-  if (!username) {
-    return res.status(400).json({
-      success: false,
-      message: "Invalid User Name",
-    });
-  }
-
-  username = username.toLowerCase();
-
+const getUsersImageSet = async (req, res) => {
   try {
+    let { username } = req.query;
+
+    if (!username) {
+      return res.status(400).json({
+        success: false,
+        message: "Username Not Found",
+      });
+    }
+
+    username = username.toLowerCase();
+
     const existingUser = await userModel.findOne({ username });
 
     if (!existingUser) {
@@ -69,14 +73,18 @@ const getByUser = async (req, res) => {
         .json({ success: false, message: "User Not Found" });
     }
 
-    return res.json(existingUser.sets);
+    return res.json({
+      success: true,
+      message: "Users Image Sets Fetched Successfully",
+      sets: existingUser.sets,
+    });
   } catch (err) {
-    console.error("Error fetching user:", err);
     return res.status(500).json({
-      message: "Error occurred while fetching from DB",
+      success: false,
+      message: "Something Went Wrong While Fetching Sets",
       error: err.message,
     });
   }
 };
 
-export { search, getByUser };
+export { search, getUsersImageSet };

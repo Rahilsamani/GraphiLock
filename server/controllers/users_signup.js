@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 import userModel from "../models/user.js";
 import jwt from "jsonwebtoken";
 import userAttemptsModel from "../models/user_attempts.js";
@@ -74,16 +74,16 @@ const signupController = async (req, res) => {
 
     return res.status(200).json({
       success: true,
+      message: "User Created Successfully",
       username: createdUser.username,
       userId: createdUser.id,
       email: createdUser.email,
       token,
     });
   } catch (error) {
-    console.error("Signup error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal Server Error",
+      message: "Something Went Wrong While Signing Up User",
       error: error.message,
     });
   }

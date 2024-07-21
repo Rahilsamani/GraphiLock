@@ -39,7 +39,7 @@ const verify = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       success: false,
-      message: "Error occured while searching, please try again later.",
+      message: "Something Went Wrong While Verifying The User",
     });
   }
 };
