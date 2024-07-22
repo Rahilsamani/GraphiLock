@@ -14,8 +14,9 @@ const Footer = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
+    console.log(data);
     axios
-      .post("http://localhost/api/digest", { email: data.email })
+      .post("http://localhost:8080/api/digest", { email: data.email })
       .then(() => {
         toast.success("Thank You For Subscribing!");
         reset();

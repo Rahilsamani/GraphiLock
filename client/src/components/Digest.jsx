@@ -12,6 +12,7 @@ const Digest = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    console.log("digest data is", data.email);
     axios
       .post(`http://localhost:8080/api/digest`, { email: data.email })
       .then(() => {
