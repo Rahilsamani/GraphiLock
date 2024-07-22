@@ -201,16 +201,16 @@ const Signup = () => {
             <br />
             <form
               onSubmit={handleSubmit(handleNextClick)}
-              className="flex flex-col w-[80%] sm:w-2/3 px-4 sm:px-0"
+              className="flex flex-col w-[90%] px-4 sm:px-0"
             >
               <input
                 {...register("username", { required: "Username is required" })}
                 value={signupInfo.username}
                 onChange={handleChange}
                 name="username"
-                className="rounded-lg h-8 sm:h-12 px-6 font-3xl border-2 border-gray-500"
+                className="rounded-lg h-8 sm:h-12 px-3 font-3xl border-2 border-gray-500"
                 type="text"
-                placeholder="Username"
+                placeholder="Enter your username"
               />
               {errors.username && (
                 <p className="text-red-500">{errors.username.message}</p>
@@ -220,9 +220,9 @@ const Signup = () => {
                 value={signupInfo.email}
                 onChange={handleChange}
                 name="email"
-                className="rounded-lg h-8 sm:h-12 px-6 font-3xl mt-4 border-2 border-gray-500"
+                className="rounded-lg h-8 sm:h-12 px-3 font-3xl mt-4 border-2 border-gray-500"
                 type="email"
-                placeholder="Email"
+                placeholder="Enter your email"
               />
               {errors.email && (
                 <p className="text-red-500">{errors.email.message}</p>
@@ -233,8 +233,8 @@ const Signup = () => {
                 })}
                 type="tel"
                 name="phoneNumber"
-                className="rounded-lg h-8 sm:h-12 px-6 font-3xl mt-4 border-2 border-gray-500"
-                placeholder="Phone Number"
+                className="rounded-lg h-8 sm:h-12 px-3 font-3xl mt-4 border-2 border-gray-500"
+                placeholder="Enter your phone number"
                 value={signupInfo.phoneNumber}
                 onChange={handleChange}
               />
@@ -252,26 +252,28 @@ const Signup = () => {
                 value={signupInfo.password}
                 onChange={handleChange}
                 name="password"
-                className="rounded-lg h-8 sm:h-12 px-6 font-3xl mt-4 border-2 border-gray-500"
+                className="rounded-lg h-8 sm:h-12 px-3 font-3xl mt-4 border-2 border-gray-500"
                 type="password"
-                placeholder="Password"
+                placeholder="Enter your password"
               />
               {errors.password && (
                 <p className="text-red-500">{errors.password.message}</p>
               )}
-              <button
-                type="submit"
-                className="ml-4 sm:ml-0 transition duration-500 ease-in-out h-8 sm:h-12 bg-[#2691CF] rounded-lg px-6 w-[80%] sm:w-2/3 mt-4 text-white hover:text-slate-400 border-2 hover:bg-transparent border-[#2691CF] font-bold"
-                disabled={loading}
-              >
-                Next
-              </button>
+              <div className="flex justify-center items-center" >
+                <button
+                  type="submit"
+                  className="ml-4 sm:ml-0 transition duration-500 ease-in-out h-8 sm:h-12 bg-[#2691CF] rounded-lg px-6 w-[80%] sm:w-2/3 mt-4 text-white hover:text-slate-400 border-2 hover:bg-transparent border-[#2691CF] font-bold"
+                  disabled={loading}
+                >
+                  Next
+                </button>
+              </div>
             </form>
             <br />
-            <div className="ml-4 sm:ml-0 text-gray-500 font-semibold text-sm sm:text-lg mt-2">
-              Already have an account?{" "}
+            <div className="ml-4 sm:ml-0 text-gray-500 font-semibold text-md mt-2 flex justify-center">
+              Already have an account?
               <Link to="/login">
-                <span className="text-[#2691CF]">login</span>
+                <span className="text-[#2691CF] ml-1">login</span>
               </Link>
             </div>
           </div>

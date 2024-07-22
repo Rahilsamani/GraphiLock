@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/logo2.png"
+import Logo from "../assets/logo2.png";
 
 const Footer = () => {
   const {
@@ -37,7 +37,7 @@ const Footer = () => {
             </p>
           </div>
           <p className="text-gray-300 font-['Work_Sans'] mt-2 sm:mt-4">
-            A Novel Approach For Security
+            A Novel Approach to Security
           </p>
         </div>
 

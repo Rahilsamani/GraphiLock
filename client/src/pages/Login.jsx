@@ -136,15 +136,15 @@ const Login = () => {
       {blocked && <BlockedBox onClick={() => setBlocked(false)} />}
 
       {!next ? (
-        <div className="flex justify-center h-full flex-row-reverse w-11/12">
-          <div className="hidden sm:block">
+        <div className="flex justify-around h-full flex-row-reverse gap-10 w-11/12">
+          <div className="hidden sm:block w-[40%]">
             <img
               className="transition duration-500 ease-in-out hover:scale-95 h-[50%] my-24"
               alt=""
               src={LoginImage}
             />
           </div>
-          <div className="font-['Work_Sans'] mt-16">
+          <div className="font-['Work_Sans'] mt-16 w-[35%]">
             <p className="text-3xl sm:text-5xl sm:font-bold px-4 sm:px-0">
               Login
             </p>
@@ -153,44 +153,46 @@ const Login = () => {
               Welcome Back! Enter Your Details Below
             </p>
             <br />
-            <div className="flex flex-col w-[80%] sm:w-2/3 px-4 sm:px-0">
+            <div className="flex flex-col w-full px-4 sm:px-0">
               <input
                 value={loginInfo.username}
                 onChange={handleChange}
                 name="username"
-                className="rounded-full h-8 sm:h-12 px-6 font-3xl border-2 border-gray-500"
+                className="rounded-md h-8 sm:h-12 px-3 font-3xl border-2 border-gray-500"
                 type="text"
-                placeholder="Username"
+                placeholder="Enter Username"
               />
               <input
                 value={loginInfo.category}
                 onChange={handleChange}
                 name="category"
-                className="rounded-full h-8 sm:h-12 px-6 mt-4 font-3xl border-2 border-gray-500"
+                className="rounded-md h-8 sm:h-12 px-3 mt-4 font-3xl border-2 border-gray-500"
                 type="text"
-                placeholder="Category"
+                placeholder="Enter Category"
               />
               <input
                 value={loginInfo.password}
                 onChange={handleChange}
                 name="password"
-                className="rounded-full h-8 sm:h-12 px-6 font-3xl mt-4 border-2 border-gray-500"
+                className="rounded-md h-8 sm:h-12 px-3 font-3xl mt-4 border-2 border-gray-500"
                 type="password"
-                placeholder="Password"
+                placeholder="Enter Password"
               />
             </div>
             {loginError && <p className="text-red-500">{loginError}</p>}
+            <div className="flex mt-3 justify-end">
+              <button
+                onClick={() => navigate("/forget-password")}
+                className="transition duration-500 ease-in-out text-[#2691CF] font-bold text-sm "
+              >
+                Forgot Password
+              </button>
+            </div>
             <button
               onClick={handleNextClick}
-              className="ml-4 sm:ml-0 transition duration-500 ease-in-out h-8 sm:h-12 bg-[#2691CF] rounded-full px-6 sm:w-2/3 mt-6 text-white border-2 hover:bg-transparent hover:text-slate-500 border-[#2691CF] font-bold"
+              className="ml-4 w-max sm:ml-0 transition duration-500 ease-in-out px-6 py-1 bg-[#2691CF] rounded-md mt-6 text-white border-2 hover:bg-transparent hover:text-slate-500 border-[#2691CF] font-bold"
             >
               Next
-            </button>
-            <button
-              onClick={() => navigate("/forget-password")}
-              className="ml-4 sm:ml-0 transition duration-500 ease-in-out h-8 sm:h-12 text-[#2691CF] rounded-full px-6 sm:w-2/3 mt-4 border-2 border-[#2691CF] hover:bg-[#2691CF] hover:text-white font-bold"
-            >
-              Forgot Password
             </button>
           </div>
         </div>

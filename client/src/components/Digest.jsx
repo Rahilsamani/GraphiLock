@@ -35,7 +35,7 @@ const Digest = () => {
           Join Our Monthly Digest
         </p>
         <p className="text-lg sm:text-2xl mt-4">
-          Get Exclusive Promotions & Updates Straight To Your Box
+          Get exclusive promotions and updates straight to your inbox.
         </p>
         <form
           onSubmit={handleSubmit(onSubmit)}

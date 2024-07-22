@@ -32,13 +32,11 @@ const Contact = () => {
     <div className="h-full flex sm:flex-row flex-col justify-center font-['Work_Sans'] mt-12">
       <div className="sm:w-2/5">
         <p className="text-2xl sm:text-5xl text-gray-600 px-6 mb-5">
-          Connect With Us
+          Get in Touch with GraphiLock
         </p>
         <p className="text-xl sm:text-2xl text-gray-500 px-6">
-          We would love to respond to your queries.
-        </p>
-        <p className="text-xl sm:text-2xl text-gray-500 px-6">
-          Feel free to get in touch with us.
+          We are here to respond to your queries. Feel free to reach out to us
+          for any assistance.
         </p>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -51,7 +49,8 @@ const Contact = () => {
                 required: "Name is required",
                 minLength: 3,
               })}
-              className="border-2 border-gray-900 rounded-md h-8 sm:h-12 px-6 font-3xl sm:w-3/4 w-[90%]"
+              placeholder="Enter Your Name"
+              className="border-2 border-gray-900 rounded-md h-8 sm:h-12 px-3 font-3xl sm:w-3/4 w-[90%]"
               type="text"
             />
             {errors.name && (
@@ -65,7 +64,8 @@ const Contact = () => {
                 required: "Email is required",
                 pattern: /^\S+@\S+$/i,
               })}
-              className="border-2 border-gray-900 rounded-md h-8 sm:h-12 px-6 font-3xl sm:w-3/4 w-[90%]"
+              placeholder="Enter Your Email"
+              className="border-2 border-gray-900 rounded-md h-8 sm:h-12 px-3 font-3xl sm:w-3/4 w-[90%]"
               type="email"
             />
             {errors.email && (
@@ -80,7 +80,8 @@ const Contact = () => {
                 minLength: 3,
               })}
               rows="4"
-              className="border-2 border-gray-900 rounded-md px-2 sm:px-6 font-3xl py-2 sm:w-3/4 w-[90%]"
+              placeholder="Enter Your Message"
+              className="border-2 border-gray-900 rounded-md px-2 sm:px-3 font-3xl py-2 sm:w-3/4 w-[90%]"
             />
             {errors.message && (
               <p className="text-red-500">{errors.message.message}</p>
@@ -89,7 +90,7 @@ const Contact = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-[90px] flex justify-center items-center mt-3 transition duration-500 ease-in-out h-4 sm:h-12 bg-[#2691CF] rounded-full sm:px-6 text-white hover:text-slate-800 border-2 hover:bg-transparent border-[#2691CF] sm:font-bold"
+            className="w-[90px] flex justify-center items-center mt-3 transition duration-500 ease-in-out h-4 sm:h-12 bg-[#2691CF] rounded-xl sm:px-6 text-white hover:text-slate-800 border-2 hover:bg-transparent border-[#2691CF] sm:font-bold"
           >
             {loading ? "Submitting..." : "Submit"}
           </button>

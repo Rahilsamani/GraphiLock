@@ -35,8 +35,8 @@ const Home = () => {
           </p>
 
           <p className="text-gray-500 text-2xl sm:text-3xl mt-3 md:mt-6">
-            A Novel Approach For Security And User Experience Of Graphical
-            Password Authentication.
+            A Novel Approach for Enhanced Security and User Experience in
+            Graphical Password Authentication.
           </p>
 
           <button
@@ -60,31 +60,31 @@ const Home = () => {
       <div id="home--2" className="sm:mt-16 font-Work_Sans w-11/12">
         <div>
           <p className="text-slate-800 text-3xl sm:text-5xl font-bold">
-            Resistance To Attacks
+            Resistance to Attacks
           </p>
           <p className="text-slate-500 text-xl sm:text-2xl mt-3 mb-8">
-            Our System Provides Security Against Popular Attacks.
+            Our System Provides Robust Security Against Common Threats.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 justify-between content-between">
             <AttackBlock
               icon={<img src={ReEnter} alt="icon" />}
               title="Bruteforce"
-              desc="After reaching max tries, the user will be notified via message through email. And the further authentication through the generic URL/website is disabled for that user account, instead, they have to use the link that will be sent by the company in the notification email. This also lets the legitimate user know about the adversary."
+              desc="After reaching the maximum number of attempts, the user will be notified via email and SMS. Further authentication attempts through the standard URL/website will be disabled for that user account. Instead, the user must use a unique link sent by our system. This also informs the legitimate user about the potential threat."
             />
             <AttackBlock
               icon={<img src={showPassword} alt="icon" />}
               title="Shoulder Surfing"
-              desc="Shoulder surfing is a type of social engineering technique used to obtain information such as personal identification numbers (PINs), passwords and other confidential data by looking over the victim's shoulder. The system we adopt is similar to the Phone pattern system."
+              desc="Shoulder surfing involves observing someone's private information by looking over their shoulder. Our system uses a method similar to the phone pattern lock system to mitigate this risk, ensuring that visual observers cannot easily discern the graphical password."
             />
             <AttackBlock
               icon={<img src={spyWare} alt="icon" />}
               title="Spyware"
-              desc="Graphical password systems resist spyware more easily than regular passwords. Key-loggers secretly capture keystrokes and transfer, but if the spyware wants to track the mouse movements, it can be tracked, but the adversary wouldn’t know which part of the mouse event is actually the graphical password."
+              desc="Graphical password systems are more resistant to spyware than traditional text-based passwords. Keyloggers can capture keystrokes but cannot effectively track mouse movements to determine the graphical password."
             />
             <AttackBlock
               icon={<img src={Pin} alt="icon" />}
               title="Phishing"
-              desc="Since the adversary is made to believe that the password is a set of images, it’s not possible to make a fake page, since the adversary thinks he doesn’t know the images."
+              desc="Phishing involves tricking users into providing their private information through fake websites. With graphical passwords, it is challenging for attackers to create convincing fake pages because they do not know the specific images used by the user."
             />
           </div>
         </div>
@@ -94,12 +94,13 @@ const Home = () => {
               Protecting Against Cyber Threats
             </h3>
             <p className="mt-8 text-xl text-gray-700">
-              This project ensures security through hashed passwords, account
-              lockouts against brute force attacks, input validation for SQL
-              injection and XSS prevention, CSRF tokens, and secure session
-              management. Additionally, it secures Cloudinary access, thwarting
-              unauthorized image access. These measures collectively fortify the
-              system against prevalent web security threats.
+              Our project ensures security through hashed passwords, account
+              lockouts against brute force attacks, and input validation to
+              prevent SQL injection and XSS attacks. We also implement CSRF
+              tokens and secure session management. Additionally, the project
+              secures Cloudinary access to prevent unauthorized image access.
+              These measures collectively fortify the system against common web
+              security threats.
             </p>
           </div>
           <Atom />
