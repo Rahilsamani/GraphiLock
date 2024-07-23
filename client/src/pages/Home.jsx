@@ -2,7 +2,7 @@ import { FaLock, FaUnlock } from "react-icons/fa";
 import AttackBlock from "../components/AttackBlock";
 import Digest from "../components/Digest";
 import { useState } from "react";
-import Secured from "../assets/secured.png";
+import Secured from "../assets/managed-firewall.png";
 import Atom from "../components/Atom";
 import showPassword from "../assets/show-password.png";
 import spyWare from "../assets/spyware-free.png";

@@ -16,7 +16,7 @@ const Atom = () => {
     flask: "https://www.vectorlogo.zone/logos/pocoo_flask/pocoo_flask-icon.svg",
     torch: "https://www.vectorlogo.zone/logos/pytorch/pytorch-icon.svg",
   };
-
+// 5.714285714285714 - 3.75
   return (
     <div className="w-full md:w-1/2">
       {/* Desktop View */}
@@ -63,25 +63,25 @@ const Atom = () => {
               src={logos.flask}
               width="40px"
               alt="flask-logo"
-              className="absolute top-0 left-0 inner_logo"
+              className="absolute top-0 left-0 inner-logo"
             />
             <img
               src={logos.mongodb}
               width="40px"
               alt="mongodb-logo"
-              className="absolute top-0 right-0 inner_logo"
+              className="absolute top-0 right-0 inner-logo"
             />
             <img
               src={logos.react}
               width="40px"
               alt="react-logo"
-              className="absolute left-0 bottom-0 inner_logo"
+              className="absolute left-0 bottom-0 inner-logo"
             />
             <img
               src={logos.torch}
               width="40px"
               alt="flask-logo"
-              className="absolute bottom-0 right-0 inner_logo"
+              className="absolute bottom-0 right-0 inner-logo"
             />
           </div>
         </div>
@@ -89,7 +89,7 @@ const Atom = () => {
           src={Secure}
           height={60}
           width={60}
-          className="absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2 secured_browser"
+          className="absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2"
           alt="secured-browser"
         />
       </div>
@@ -138,25 +138,25 @@ const Atom = () => {
               src={logos.flask}
               width="30px"
               alt="flask-logo"
-              className="absolute top-0 left-0 inner_logo"
+              className="absolute top-0 left-0 inner-logo"
             />
             <img
               src={logos.mongodb}
               width="30px"
               alt="mongodb-logo"
-              className="absolute top-0 right-0 inner_logo"
+              className="absolute top-0 right-0 inner-logo"
             />
             <img
               src={logos.react}
               width="30px"
               alt="react-logo"
-              className="absolute left-0 bottom-0 inner_logo"
+              className="absolute left-0 bottom-0 inner-logo"
             />
             <img
               src={logos.torch}
               width="30px"
               alt="flask-logo"
-              className="absolute bottom-0 right-0 inner_logo"
+              className="absolute bottom-0 right-0 inner-logo"
             />
           </div>
         </div>

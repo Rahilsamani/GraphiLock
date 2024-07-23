@@ -39,3 +39,17 @@
     transform: rotate(-360deg);
   }
 }
+
+.inner-logo {
+  animation: spin-inner-logo 93.335s linear infinite;
+}
+
+@keyframes spin-inner-logo {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

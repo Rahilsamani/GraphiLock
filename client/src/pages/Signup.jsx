@@ -56,7 +56,7 @@ const Signup = () => {
         iteration={index}
         id={index}
         key={nanoid()}
-        src={imageUrl}
+        src={imageUrl.url}
         selected={signupInfo.pattern.includes(index)}
         onClick={() => handleImageClick(index)}
       />
@@ -112,24 +112,13 @@ const Signup = () => {
 
     setLoading(true);
     try {
-      let fullUrls = [];
-      const timestamp = new Date().getTime();
+      const randomNumber = Math.floor(Math.random() * 6);
 
-      if (searchTerm === "rose") {
-        const response = await axios.get("http://localhost:5000/sketchimage");
-        fullUrls = response.data.map(
-          (filename) =>
-            `http://localhost:5000/generated_images/${filename}?t=${timestamp}`
-        );
-      } else {
-        const response = await axios.get("http://localhost:5000/image");
-        fullUrls = response.data.map(
-          (filename) =>
-            `http://localhost:5000/generated_images/${filename}?t=${timestamp}`
-        );
-      }
+      const fullUrls = await axios.get(
+        `http://localhost:8080/api/image/search?keyword=${keyword}`
+      );
 
-      setImageData(fullUrls);
+      setImageData(fullUrls.data.splitArrays[randomNumber]);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -259,7 +248,7 @@ const Signup = () => {
               {errors.password && (
                 <p className="text-red-500">{errors.password.message}</p>
               )}
-              <div className="flex justify-center items-center" >
+              <div className="flex justify-center items-center">
                 <button
                   type="submit"
                   className="ml-4 sm:ml-0 transition duration-500 ease-in-out h-8 sm:h-12 bg-[#2691CF] rounded-lg px-6 w-[80%] sm:w-2/3 mt-4 text-white hover:text-slate-400 border-2 hover:bg-transparent border-[#2691CF] font-bold"
