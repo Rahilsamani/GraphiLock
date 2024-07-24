@@ -11,8 +11,6 @@ function getNameByNumber(num) {
       return "Second";
     case 3:
       return "Third";
-    case 4:
-      return "Fourth";
   }
 }
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PasswordIcon from "../components/PasswordIcon";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaSearch } from "react-icons/fa";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -10,6 +10,7 @@ import LoginImage from "../assets/login.webp";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
+import { getNameByNumber } from "../utils/imageValidation";
 
 const Signup = () => {
   const [next, setNext] = useState(false);
@@ -17,6 +18,7 @@ const Signup = () => {
   const [imageData, setImageData] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [iteration, setIteration] = useState(0);
   const [signupInfo, setSignupInfo] = useState({
     username: "",
     email: "",
@@ -66,12 +68,18 @@ const Signup = () => {
   function handleImageClick(id) {
     const currentPattern = [...signupInfo.pattern];
     const index = currentPattern.findIndex((pattern) => pattern === id);
+
     if (index !== -1) {
       currentPattern[index] = "";
+      setIteration((prev) => Math.max(prev - 1, 0));
     } else {
       const emptyIndex = currentPattern.findIndex((pattern) => pattern === "");
-      if (emptyIndex !== -1) currentPattern[emptyIndex] = id;
+      if (emptyIndex !== -1) {
+        currentPattern[emptyIndex] = id;
+        setIteration((prev) => prev + 1);
+      }
     }
+
     setSignupInfo((prev) => ({
       ...prev,
       pattern: currentPattern,
@@ -112,13 +120,27 @@ const Signup = () => {
 
     setLoading(true);
     try {
-      const randomNumber = Math.floor(Math.random() * 6);
-
       const fullUrls = await axios.get(
         `http://localhost:8080/api/image/search?keyword=${keyword}`
       );
 
-      setImageData(fullUrls.data.splitArrays[randomNumber]);
+      const size = fullUrls.data.splitArrays.length;
+
+      const randomNumber = Math.floor(Math.random() * (size - 1));
+
+      const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      };
+
+      const selectedUrls = shuffleArray(
+        fullUrls.data.splitArrays[randomNumber]
+      );
+
+      setImageData(selectedUrls);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -164,10 +186,10 @@ const Signup = () => {
   }
 
   return (
-    <div className="sm:h-[30rem] mt-12">
+    <div className=" sm:h-[38rem] mt-12">
       {!next && (
-        <div className="flex justify-center gap-10 h-full">
-          {/* IMAGE */}
+        <div className="flex justify-center h-full">
+          {/* image */}
           <div className="hidden sm:block">
             <img
               className="transition duration-500 ease-in-out hover:scale-95 h-[50%] my-20"
@@ -175,7 +197,7 @@ const Signup = () => {
               src={LoginImage}
             />
           </div>
-          {/* SIGNUP FORM */}
+          {/* signup form */}
           <div className="font-['Work_Sans'] mt-4">
             <p className="px-4 sm:px-0 text-3xl sm:text-5xl sm:font-bold">
               Create Account
@@ -270,53 +292,130 @@ const Signup = () => {
       )}
 
       {next && (
-        <div>
-          <div className="flex flex-col justify-center items-center">
-            <h1 className="text-4xl text-gray-500 font-bold my-4">
-              Select 3 Images
-            </h1>
-            <div className="mt-6">
-              <input
-                {...register("category", { required: "Category is required" })}
-                type="text"
-                name="category"
-                placeholder="Enter Keyword"
-                value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
-                className="rounded-lg w-2/3 sm:w-1/2 h-8 sm:h-12 px-6 font-3xl border-2 border-gray-500"
-              />
+        <div className="sm:flex h-full">
+          {imageData.length > 0 && (
+            <div className="hidden sm:grid grid-cols-4 bg-slate-200 h-full rounded-lg w-[75%] justify-items-center py-4 px-2 gap-2 ml-12">
+              {getIcons()}
+            </div>
+          )}
+          {imageData.length === 0 && (
+            <div className="text-2xl text-white hidden sm:flex justify-center items-center h-full bg-slate-200 w-[75%] ml-12 rounded-lg">
+              <p className="bg-red-600 px-3 py-1 rounded-lg">No Images :(</p>
+            </div>
+          )}
+
+          {/*DESKTOP VIEW*/}
+          <div className="hidden sm:block font-['Work_Sans'] mt-4 ml-12">
+            <p className="text-[#2691CF] text-5xl font-bold">
+              Set Graphical Password
+            </p>
+            <br />
+            <p className="text-grey text-2xl">Enter keyword to get images.</p>
+            <p className="text-slate-600 text-2xl">
+              Select{" "}
+              <span className="text-[#2691CF]">
+                {getNameByNumber(iteration + 1)}
+              </span>{" "}
+              Image.
+            </p>
+            <br />
+            {iteration === 0 && (
+              <div className="align-middle items-center">
+                <p className="text-grey text-2xl">Type Keyword: </p>
+                <div className=" rounded-lg flex mt-2">
+                  <input
+                    onChange={(event) => setKeyword(event.target.value)}
+                    onKeyPress={(event) => {
+                      if (event.key === "Enter") {
+                        searchKeyword();
+                      }
+                    }}
+                    value={keyword}
+                    placeholder="Try 'Cats'"
+                    className="rounded-l-md px-4 bg-gray-100 text-2xl py-1"
+                  />
+                  <button
+                    onClick={searchKeyword}
+                    className="bg-gray-100 transition duration-500 ease-in-out rounded-r-lg px-4 h-12 hover:bg-gray-300"
+                  >
+                    <FaSearch className="text-black" />
+                  </button>
+                </div>
+              </div>
+            )}
+            <div className="flex justify-start items-center gap-5 mt-12">
               <button
-                onClick={() => searchKeyword(keyword)}
-                className="ml-2 transition duration-500 ease-in-out h-8 sm:h-12 bg-[#2691CF] rounded-lg px-6 text-white hover:text-slate-400 border-2 hover:bg-transparent border-[#2691CF] font-bold"
-                disabled={loading}
+                onClick={createAccount}
+                className="transition duration-500 ease-in-out h-12 bg-[#2691CF] rounded-full px-6 w-2/3 text-white border-2 hover:bg-transparent hover:text-black border-[#2691CF] font-bold"
               >
-                {loading ? "Loading..." : "Search"}
+                {getButtonTitle()}
               </button>
-              {errors.category && (
-                <p className="text-red-500">{errors.category.message}</p>
-              )}
+              <button
+                onClick={handleBackClick}
+                className="transition text-slate-500 duration-500 ease-in-out border-2 border-[#2691CF] rounded-full px-4 h-12"
+              >
+                <FaArrowLeft />
+              </button>
             </div>
-            <div className="mt-10">
-              {imageData.length > 0 ? (
-                <div className="grid grid-cols-3 gap-4">{getIcons()}</div>
-              ) : (
-                <p className="text-gray-500">
-                  No images found. Try another keyword.
+          </div>
+
+          {/*MOBILE VIEW*/}
+          <div className="sm:hidden font-['Work_Sans'] mt-4 ml-4">
+            <p className="text-white text-2xl">Set Graphical Password</p>
+            <br />
+            <p className="text-white text-lg">Enter keyword to get images.</p>
+            <p className="text-white text-lg">
+              Select{" "}
+              <span className="text-green-400">
+                {getNameByNumber(iteration + 1)}
+              </span>{" "}
+              Image.
+            </p>
+            <br />
+            {iteration === 0 && (
+              <div className="align-middle items-center">
+                <p className="text-white text-lg">Type Keyword: </p>
+                <div className=" rounded-md flex mt-2">
+                  <input
+                    onChange={(event) => setKeyword(event.target.value)}
+                    value={keyword}
+                    placeholder="Try 'Cats'"
+                    className="rounded-l-md px-2 bg-gray-100 h-8 text-lg py-0"
+                  />
+                  <button
+                    onClick={searchKeyword}
+                    className="bg-gray-100 transition duration-500 ease-in-out rounded-r-lg px-4 h-8 hover:bg-gray-300"
+                  >
+                    <FaSearch className="text-black" />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {imageData.length > 0 && (
+              <div className="mt-4 grid grid-cols-2 bg-[#3B3B3B] h-full rounded-md w-full justify-items-center py-4 gap-1 gap-x-0 -ml-2">
+                {getIcons()}
+              </div>
+            )}
+            {imageData.length === 0 && (
+              <div className="text-xl text-white flex justify-center items-center h-full bg-[#3B3B3B] w-[80%] rounded-md mt-4">
+                <p className="bg-red-600 px-2 py-0 rounded-md my-8">
+                  No Images :(
                 </p>
-              )}
-            </div>
+              </div>
+            )}
+
             <button
               onClick={createAccount}
-              className="transition duration-500 ease-in-out h-8 sm:h-12 bg-[#2691CF] rounded-lg px-6 w-1/2 mt-8 text-white hover:text-slate-400 border-2 hover:bg-transparent border-[#2691CF] font-bold"
-              disabled={loading}
+              className="transition duration-500 ease-in-out h-8 bg-[#A259FF] rounded-full px-6 w-2/3 mt-12 text-white border-2 hover:bg-transparent border-[#A259FF]"
             >
               {getButtonTitle()}
             </button>
             <button
               onClick={handleBackClick}
-              className="text-gray-500 font-semibold text-lg mt-4"
+              className="transition duration-500 ease-in-out border-2 border-[#A259FF] rounded-full px-4 h-8 ml-4 hover:bg-[#A259FF]"
             >
-              <FaArrowLeft /> Go back
+              <FaArrowLeft className="text-white" />
             </button>
           </div>
         </div>
