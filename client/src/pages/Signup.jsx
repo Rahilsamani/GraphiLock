@@ -60,14 +60,14 @@ const Signup = () => {
         key={nanoid()}
         src={imageUrl.url}
         selected={signupInfo.pattern.includes(index)}
-        onClick={() => handleImageClick(index)}
+        onClick={() => handleImageClick(imageUrl.url)}
       />
     ));
   }
 
-  function handleImageClick(id) {
+  function handleImageClick(url) {
     const currentPattern = [...signupInfo.pattern];
-    const index = currentPattern.findIndex((pattern) => pattern === id);
+    const index = currentPattern.findIndex((pattern) => pattern === url);
 
     if (index !== -1) {
       currentPattern[index] = "";
@@ -75,7 +75,7 @@ const Signup = () => {
     } else {
       const emptyIndex = currentPattern.findIndex((pattern) => pattern === "");
       if (emptyIndex !== -1) {
-        currentPattern[emptyIndex] = id;
+        currentPattern[emptyIndex] = url;
         setIteration((prev) => prev + 1);
       }
     }
@@ -91,6 +91,8 @@ const Signup = () => {
       toast.error("Select all 3 images!");
       return;
     }
+
+    signupInfo.category = keyword;
 
     setLoading(true);
 
@@ -310,7 +312,10 @@ const Signup = () => {
               Set Graphical Password
             </p>
             <br />
-            <p className="text-grey text-2xl">Enter keyword to get images.</p>
+            {iteration === 0 && (
+              <p className="text-grey text-2xl">Enter keyword to get images.</p>
+            )}
+
             <p className="text-slate-600 text-2xl">
               Select{" "}
               <span className="text-[#2691CF]">
@@ -318,7 +323,7 @@ const Signup = () => {
               </span>{" "}
               Image.
             </p>
-            <br />
+
             {iteration === 0 && (
               <div className="align-middle items-center">
                 <p className="text-grey text-2xl">Type Keyword: </p>

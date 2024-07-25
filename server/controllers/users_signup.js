@@ -22,7 +22,7 @@ const signupController = async (req, res) => {
     ) {
       return res.status(406).json({
         success: false,
-        message: "All Fields Are Reuired",
+        message: "All Fields Are Required",
       });
     }
 

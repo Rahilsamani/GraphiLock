@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import mongooseUniqueValidator from "mongoose-unique-validator";
 
 const userSchema = new mongoose.Schema(
   {
@@ -7,19 +6,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Username is required"],
       unique: true,
-      index: true,
     },
     email: {
       type: String,
       required: [true, "Email is required"],
       unique: true,
-      index: true,
-      match: [/.+\@.+\..+/, "Please enter a valid email address"],
     },
     phoneNumber: {
       type: String,
       required: [true, "Phone number is required"],
-      match: [/^\d{10}$/, "Please enter a valid 10-digit phone number"],
     },
     password: {
       type: String,
@@ -49,8 +44,6 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-userSchema.plugin(mongooseUniqueValidator);
 
 const User = mongoose.model("User", userSchema);
 
