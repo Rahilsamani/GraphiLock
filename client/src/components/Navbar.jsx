@@ -1,9 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/Logo.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { setUser } from "../slices/profileSlice";
 
 const Navbar = () => {
   const userInfo = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    dispatch(setUser(null));
+    localStorage.removeItem("user");
+    toast.success("Logged Out");
+    navigate("/");
+  };
+
   return (
     <div className="md:p-6 py-2 px-4 flex justify-between items-center">
       {/* Logo */}
@@ -37,13 +49,17 @@ const Navbar = () => {
         </div>
       )}
 
-      {console.log("userInfo", userInfo)}
-
       {userInfo.user && (
-        <div>
+        <div className="flex justify-center items-center gap-3">
           <Link to="/">
             <p className="text-xl text-slate-800">{userInfo.user.username}</p>
           </Link>
+          <button
+            className="bg-[#2691CF] px-3 py-1 rounded-lg"
+            onClick={logout}
+          >
+            <div>Logout</div>
+          </button>
         </div>
       )}
     </div>

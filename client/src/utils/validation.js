@@ -12,7 +12,6 @@ async function checkUsername(username, setLoading) {
     setLoading(false);
     return response.data.exists;
   } catch (err) {
-    console.log(err);
     setLoading(false);
     return false;
   }
@@ -27,7 +26,6 @@ async function checkEmail(email, setLoading) {
     setLoading(false);
     return response.data.exists;
   } catch (err) {
-    console.log(err);
     setLoading(false);
     return false;
   }

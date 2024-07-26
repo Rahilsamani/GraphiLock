@@ -14,7 +14,6 @@ const Footer = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data);
     axios
       .post("http://localhost:8080/api/digest", { email: data.email })
       .then(() => {

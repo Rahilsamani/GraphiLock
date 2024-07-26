@@ -35,13 +35,31 @@ const Login = () => {
     }));
   };
 
+  const shuffleArray = (array) => {
+    let currentIndex = array.length,
+      randomIndex;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  };
+
   const handleNextClick = async () => {
     if (validateData() && (await validateUsernameAndEmail())) {
       try {
         const res = await axios.get(
           `http://localhost:8080/api/image?username=${loginInfo.username}`
         );
-        setImageData(res.data.sets[0] || []);
+        const shuffledData = shuffleArray(res.data.sets[0] || []);
+        setImageData(shuffledData);
         setNext(true);
       } catch (err) {
         toast.error(err.response?.data?.message || "Internal server error");
@@ -91,7 +109,6 @@ const Login = () => {
 
     setLoading(true);
     try {
-      console.log("Login Info -> ", loginInfo);
       const res = await axios.post(
         "http://localhost:8080/api/user/login",
         loginInfo

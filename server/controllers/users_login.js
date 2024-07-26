@@ -98,7 +98,7 @@ const loginController = async (req, res) => {
 
         if (existingUser.phoneNumber) {
           try {
-            await sendSMS(existingUser.phoneNumber, emailContent);
+            // await sendSMS(existingUser.phoneNumber, emailContent);
           } catch (smsError) {
             console.error("Error sending SMS:", smsError.message);
           }
