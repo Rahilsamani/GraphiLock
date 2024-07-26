@@ -24,7 +24,6 @@ const Login = () => {
   const [loginError, setLoginError] = useState("");
   const [loading, setLoading] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -40,7 +39,7 @@ const Login = () => {
         const res = await axios.get(
           `http://localhost:8080/api/image?username=${loginInfo.username}`
         );
-        setImageData(res.data[0] || []);
+        setImageData(res.data.sets[0] || []);
         setNext(true);
       } catch (err) {
         toast.error(err.response?.data?.message || "Internal server error");
@@ -48,13 +47,13 @@ const Login = () => {
     }
   };
 
-  const handleImageClick = (id) => {
+  const handleImageClick = (url) => {
     if (iteration >= 3) {
       toast.error("You can only select 3 images for the pattern");
       return;
     }
     const newPattern = [...loginInfo.pattern];
-    newPattern[iteration] = id;
+    newPattern[iteration] = url;
     setLoginInfo((prev) => ({
       ...prev,
       pattern: newPattern,
@@ -74,7 +73,10 @@ const Login = () => {
   };
 
   const validateUsernameAndEmail = async () => {
-    const isUsernameExists = await checkUsername(loginInfo.username);
+    const isUsernameExists = await checkUsername(
+      loginInfo.username,
+      setLoading
+    );
     if (!isUsernameExists) toast.error("Username does not exist!");
     return isUsernameExists;
   };
@@ -87,6 +89,7 @@ const Login = () => {
 
     setLoading(true);
     try {
+      console.log("Login Info -> ", loginInfo);
       const res = await axios.post(
         "http://localhost:8080/api/user/login",
         loginInfo
@@ -97,7 +100,6 @@ const Login = () => {
         username: res.data.username,
         category: res.data.category,
       });
-      setLoggedIn(true);
       toast.success("Logged In!");
       navigate("/");
     } catch (err) {
@@ -198,15 +200,15 @@ const Login = () => {
         </div>
       ) : (
         <div className="sm:flex justify-center h-full">
-          <div className="hidden sm:grid grid-cols-4 bg-[#3B3B3B] h-full rounded-lg w-[75%] justify-items-center py-4 px-2 gap-2 ml-12">
+          <div className="hidden sm:grid grid-cols-4 bg-slate-200 h-full rounded-lg w-[75%] justify-items-center py-4 px-2 gap-2 ml-12">
             {imageData.map((imageUrl, index) => (
               <PasswordIcon
                 iteration={index}
                 id={index}
                 key={index}
-                src={imageUrl}
+                src={imageUrl.url}
                 selected={loginInfo.pattern.includes(index)}
-                onClick={() => handleImageClick(index)}
+                onClick={() => handleImageClick(imageUrl.url)}
               />
             ))}
           </div>
@@ -224,24 +226,26 @@ const Login = () => {
               </span>{" "}
               Image.
             </p>
-            <br />
-            <button
-              onClick={login}
-              disabled={iteration < 3}
-              className={`transition duration-500 ease-in-out h-12 ${
-                iteration < 3
-                  ? "bg-gray-400 text-gray-800 cursor-not-allowed"
-                  : "bg-[#2691CF] text-white hover:bg-transparent hover:text-slate-600 border-[#2691CF]"
-              } rounded-full px-6 w-2/3 mt-6 border-2 font-bold`}
-            >
-              {getButtonTitle()}
-            </button>
-            <button
-              onClick={handleBackClick}
-              className="transition duration-500 ease-in-out border-2 border-[#2691CF] rounded-full px-4 h-12 ml-4 hover:bg-[#2691CF] group"
-            >
-              <FaArrowLeft className="text-slate-500 group-hover:text-slate-200" />
-            </button>
+            <div className="flex justify-start items-end gap-5">
+              <button
+                onClick={login}
+                disabled={iteration < 3}
+                className={`transition duration-500 ease-in-out h-12 ${
+                  iteration < 3
+                    ? "bg-gray-400 text-gray-800 cursor-not-allowed"
+                    : "bg-[#2691CF] text-white hover:bg-transparent hover:text-slate-600 border-[#2691CF]"
+                } rounded-full px-6 w-2/3 mt-6 border-2 font-bold`}
+              >
+                {getButtonTitle()}
+              </button>
+
+              <button
+                onClick={handleBackClick}
+                className="transition duration-500 ease-in-out border-2 border-[#2691CF] rounded-full px-4 h-12 hover:bg-[#2691CF] group"
+              >
+                <FaArrowLeft className="text-slate-500 group-hover:text-slate-200" />
+              </button>
+            </div>
           </div>
 
           <div className="sm:hidden font-['Work_Sans'] mt-4 ml-4">
