@@ -77,5 +77,10 @@ Contributions are welcome! Please follow these steps:
 - [React](https://reactjs.org), [Node.js](https://nodejs.org), [Express](https://expressjs.com), and [MongoDB](https://www.mongodb.com) for the tech stack.
 - [react-hot-toast](https://react-hot-toast.com) for toast notifications.
 
+
+## Contact
+
+If you have any questions or feedback, please feel free to contact me at rahilahmed1720@gmail.com.
+
 ---
 
