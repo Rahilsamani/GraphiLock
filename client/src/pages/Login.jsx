@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "../slices/profileSlice";
 import { checkUsername } from "../utils/validation";
 import { toast } from "react-hot-toast";
 import { FaArrowLeft } from "react-icons/fa";
@@ -23,7 +25,7 @@ const Login = () => {
   });
   const [loginError, setLoginError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -95,11 +97,13 @@ const Login = () => {
         loginInfo
       );
       setLoading(false);
-      setUserInfo({
+      const user = {
         email: res.data.email,
         username: res.data.username,
         category: res.data.category,
-      });
+      };
+      dispatch(setUser(user));
+      localStorage.setItem("user", JSON.stringify(user));
       toast.success("Logged In!");
       navigate("/");
     } catch (err) {
