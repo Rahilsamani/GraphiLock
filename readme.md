@@ -30,7 +30,7 @@ GraphiLock is an innovative graphical password authentication system designed to
 
 ```bash
 git clone https://github.com/Rahilsamani/GraphiLock.git
-cd graphilock
+cd graphiLock
 ```
 
 ### Install dependencies

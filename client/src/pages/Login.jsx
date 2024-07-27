@@ -139,11 +139,18 @@ const Login = () => {
     }
   };
 
-  const getButtonTitle = () => (iteration < 3 ? "Next" : "Login");
-
   const handleBackClick = () => {
-    if (iteration === 0) setNext(false);
-    else setIteration(iteration - 1);
+    if (iteration === 0) {
+      setNext(false);
+    } else {
+      const newPattern = [...loginInfo.pattern];
+      newPattern[iteration - 1] = "";
+      setLoginInfo((prev) => ({
+        ...prev,
+        pattern: newPattern,
+      }));
+      setIteration(iteration - 1);
+    }
   };
 
   if (loading) {
@@ -228,7 +235,7 @@ const Login = () => {
                 id={index}
                 key={index}
                 src={imageUrl.url}
-                selected={loginInfo.pattern.includes(index)}
+                selected={loginInfo.pattern.includes(imageUrl.url)}
                 onClick={() => handleImageClick(imageUrl.url)}
               />
             ))}
@@ -247,71 +254,81 @@ const Login = () => {
               </span>{" "}
               Image.
             </p>
-            <div className="flex justify-start items-end gap-5">
+            <div className="flex justify-start items-center gap-10 mt-5">
               <button
                 onClick={login}
                 disabled={iteration < 3}
                 className={`transition duration-500 ease-in-out h-12 ${
                   iteration < 3
-                    ? "bg-gray-400 text-gray-800 cursor-not-allowed"
-                    : "bg-[#2691CF] text-white hover:bg-transparent hover:text-slate-600 border-[#2691CF]"
-                } rounded-full px-6 w-2/3 mt-6 border-2 font-bold`}
+                    ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                    : "bg-[#2691CF] hover:bg-transparent hover:text-slate-500"
+                } rounded-md text-white border-2 border-[#2691CF] font-bold px-4`}
               >
-                {getButtonTitle()}
+                Login
               </button>
 
               <button
                 onClick={handleBackClick}
-                className="transition duration-500 ease-in-out border-2 border-[#2691CF] rounded-full px-4 h-12 hover:bg-[#2691CF] group"
+                className="transition duration-500 ease-in-out px-2 text-lg py-2 rounded-full bg-[#2691CF] text-white border-2 hover:bg-transparent hover:text-slate-500 border-[#2691CF] font-bold"
               >
-                <FaArrowLeft className="text-slate-500 group-hover:text-slate-200" />
+                <FaArrowLeft />
               </button>
             </div>
           </div>
 
-          <div className="sm:hidden font-['Work_Sans'] mt-4 ml-4">
-            <p className=" text-2xl font-bold">Set Graphical Password</p>
+          <div className="sm:hidden w-full flex justify-center">
+            <div className="grid grid-cols-2 bg-slate-200 justify-items-center py-4 px-2 gap-2 w-11/12">
+              {imageData.map((imageUrl, index) => (
+                <PasswordIcon
+                  iteration={index}
+                  id={index}
+                  key={index}
+                  src={imageUrl.url}
+                  selected={loginInfo.pattern.includes(imageUrl.url)}
+                  onClick={() => handleImageClick(imageUrl.url)}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="sm:hidden block mt-4 font-['Work_Sans'] text-center">
+            <p className="text-2xl  font-bold">Set Graphical Password</p>
             <br />
-            <p className="text-lg">
+            <p className="text-xl">
               Select Images For Your Graphical Password.
             </p>
-            <p className="text-lg">
+            <p className="text-xl">
               Select{" "}
               <span className="text-green-400">
                 {getNameByNumber(iteration + 1)}
               </span>{" "}
               Image.
             </p>
-            <br />
-            <div className="grid grid-cols-3 gap-2">
-              {imageData.map((imageUrl, index) => (
-                <PasswordIcon
-                  iteration={index}
-                  id={index}
-                  key={index}
-                  src={imageUrl}
-                  selected={loginInfo.pattern.includes(index)}
-                  onClick={() => handleImageClick(index)}
-                />
-              ))}
+
+            <div className="flex justify-center items-end mt-10">
+              <div>
+                <button
+                  onClick={login}
+                  disabled={iteration < 3}
+                  className={`transition duration-500 ease-in-out h-12 mt-4 ${
+                    iteration < 3
+                      ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                      : "bg-[#2691CF] hover:bg-transparent hover:text-slate-500"
+                  } rounded-md text-white border-2 border-[#2691CF] font-bold px-4`}
+                >
+                  Login
+                </button>
+              </div>
+
+              <div>
+                <button
+                  onClick={handleBackClick}
+                  className="transition duration-500 ease-in-out px-6 py-1 bg-[#2691CF] rounded-md mt-6 text-white border-2 hover:bg-transparent hover:text-slate-500 border-[#2691CF] font-bold"
+                >
+                  <FaArrowLeft />
+                </button>
+              </div>
             </div>
-            <button
-              onClick={login}
-              disabled={iteration < 3}
-              className={`transition duration-500 ease-in-out h-10 ${
-                iteration < 3
-                  ? "bg-gray-400 text-gray-800 cursor-not-allowed"
-                  : "bg-[#2691CF] text-white hover:bg-transparent hover:text-slate-600 border-[#2691CF]"
-              } rounded-full px-4 w-full mt-6 border-2 font-bold`}
-            >
-              {getButtonTitle()}
-            </button>
-            <button
-              onClick={handleBackClick}
-              className="transition duration-500 ease-in-out border-2 border-[#2691CF] rounded-full px-4 h-10 ml-2 hover:bg-[#2691CF] group"
-            >
-              <FaArrowLeft className="text-slate-500 group-hover:text-slate-200" />
-            </button>
           </div>
         </div>
       )}
