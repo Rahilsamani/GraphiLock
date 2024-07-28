@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { userModel } from "../models/user.js";
+import userModel from "../models/user.js";
 import { encryptData } from "../encryption.js";
 import { mailSender } from "../utils/nodemailer.js";
 

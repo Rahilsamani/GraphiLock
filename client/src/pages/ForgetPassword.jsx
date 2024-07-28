@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import LoginImage from "../assets/login.webp";
+import ForgetImage from "../assets/forget_password.jpg";
 import { useNavigate } from "react-router-dom";
 
 const ForgetPassword = () => {
@@ -48,15 +48,16 @@ const ForgetPassword = () => {
 
   return (
     <div className="sm:h-[30rem] sm:mt-12 flex justify-center items-center">
-      <div className="flex justify-center h-full flex-row-reverse w-11/12">
-        <div className="hidden sm:block">
+      <div className="flex justify-center items-center h-full flex-row-reverse w-11/12">
+        <div className="hidden sm:block w-1/2">
           <img
-            className="transition duration-500 ease-in-out hover:scale-95 h-[50%] my-24"
+            className="transition duration-500 ease-in-out hover:scale-95 my-24"
+            height={200}
             alt="Login Illustration"
-            src={LoginImage}
+            src={ForgetImage}
           />
         </div>
-        <div className="font-['Work_Sans'] mt-16">
+        <div className="font-['Work_Sans'] mt-16 w-1/2">
           {step === 1 ? (
             <>
               <p className="text-3xl sm:text-5xl sm:font-bold px-4 sm:px-0">
@@ -70,14 +71,14 @@ const ForgetPassword = () => {
                   value={email}
                   onChange={handleChange}
                   name="email"
-                  className="rounded-full h-8 sm:h-12 px-6 font-3xl border-2 border-gray-500"
+                  className="rounded-xl h-8 sm:h-12 px-3 font-3xl border-2 border-gray-500"
                   type="email"
                   placeholder="Email"
                 />
               </div>
               <button
                 onClick={handleSendEmail}
-                className="ml-4 sm:ml-0 transition duration-500 ease-in-out h-8 sm:h-12 bg-[#2691CF] rounded-full px-6 sm:w-2/3 mt-6 text-white border-2 hover:bg-transparent hover:text-slate-500 border-[#2691CF] font-bold"
+                className="ml-4 sm:ml-0 transition duration-500 ease-in-out h-8 sm:h-12 bg-[#2691CF] rounded-full px-6 sm:w-[150px] mt-6 text-white border-2 hover:bg-transparent hover:text-slate-500 border-[#2691CF] font-bold"
               >
                 Send Email
               </button>
