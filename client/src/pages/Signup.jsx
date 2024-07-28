@@ -126,9 +126,12 @@ const Signup = () => {
         `http://localhost:8080/api/image/search?keyword=${keyword}`
       );
 
-      const size = fullUrls.data.splitArrays.length;
+      const allImages = fullUrls.data.splitArrays.flat();
 
-      const randomNumber = Math.floor(Math.random() * (size - 1));
+      const uniqueImages = allImages.filter(
+        (image, index, self) =>
+          index === self.findIndex((img) => img.url === image.url)
+      );
 
       const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -138,9 +141,7 @@ const Signup = () => {
         return array;
       };
 
-      const selectedUrls = shuffleArray(
-        fullUrls.data.splitArrays[randomNumber]
-      );
+      const selectedUrls = shuffleArray(uniqueImages).slice(0, 12);
 
       setImageData(selectedUrls);
       setLoading(false);
