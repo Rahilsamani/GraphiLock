@@ -56,7 +56,7 @@ const Login = () => {
     if (validateData() && (await validateUsernameAndEmail())) {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/image?username=${loginInfo.username}`
+          `${process.env.REACT_APP_BACKEND}/api/image?username=${loginInfo.username}`
         );
         const shuffledData = shuffleArray(res.data.sets[0] || []);
         setImageData(shuffledData);
@@ -110,7 +110,7 @@ const Login = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/user/login",
+        `${process.env.REACT_APP_BACKEND}/api/user/login`,
         loginInfo
       );
       setLoading(false);
@@ -294,7 +294,9 @@ const Login = () => {
           </div>
 
           <div className="sm:hidden block mt-4 font-['Work_Sans'] text-center">
-            <p className="text-[#2691CF] text-4xl  font-bold">Set Graphical Password</p>
+            <p className="text-[#2691CF] text-4xl  font-bold">
+              Set Graphical Password
+            </p>
             <br />
             <p className="text-xl">
               Select Images For Your Graphical Password.

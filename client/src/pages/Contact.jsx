@@ -16,7 +16,7 @@ const Contact = () => {
   const onSubmit = (data) => {
     setLoading(true);
     axios
-      .post("http://localhost:8080/api/contact", data)
+      .post(`${process.env.REACT_APP_BACKEND}/api/contact`, data)
       .then(() => {
         setLoading(false);
         toast.success("Message Sent");

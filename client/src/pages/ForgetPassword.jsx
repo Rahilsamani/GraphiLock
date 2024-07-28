@@ -21,7 +21,7 @@ const ForgetPassword = () => {
   const handleSendEmail = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/user/forgot-password",
+        `${process.env.REACT_APP_BACKEND}/api/user/forgot-password`,
         { email }
       );
       toast.success(res.data.message);
@@ -35,7 +35,7 @@ const ForgetPassword = () => {
   const handleResetPassword = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/user/reset-password",
+        `${process.env.REACT_APP_BACKEND}/api/user/reset-password`,
         { resetToken, newPassword }
       );
       toast.success(res.data.message);

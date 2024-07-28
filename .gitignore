@@ -4,3 +4,4 @@ server/node_modules
 
 server/.env
 
+client/src/.env

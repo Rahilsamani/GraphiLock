@@ -97,7 +97,7 @@ const Signup = () => {
     setLoading(true);
 
     axios
-      .post("http://localhost:8080/api/user/signup", signupInfo)
+      .post(`${process.env.REACT_APP_BACKEND}/api/user/signup`, signupInfo)
       .then((res) => {
         setLoading(false);
         localStorage.setItem("authToken", res.data.token);
@@ -123,7 +123,7 @@ const Signup = () => {
     setLoading(true);
     try {
       const fullUrls = await axios.get(
-        `http://localhost:8080/api/image/search?keyword=${keyword}`
+        `${process.env.REACT_APP_BACKEND}/api/image/search?keyword=${keyword}`
       );
 
       const allImages = fullUrls.data.splitArrays.flat();
@@ -367,7 +367,9 @@ const Signup = () => {
 
           {/*MOBILE VIEW*/}
           <div className="sm:hidden font-['Work_Sans'] mt-4 ml-4">
-            <p className="text-[#2691CF] text-4xl font-bold">Set Graphical Password</p>
+            <p className="text-[#2691CF] text-4xl font-bold">
+              Set Graphical Password
+            </p>
             <br />
             <p className="text-grey text-lg">Enter keyword to get images.</p>
             <p className="text-slate-600 text-lg">

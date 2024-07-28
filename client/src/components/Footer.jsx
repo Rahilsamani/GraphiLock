@@ -15,7 +15,9 @@ const Footer = () => {
 
   const onSubmit = (data) => {
     axios
-      .post("http://localhost:8080/api/digest", { email: data.email })
+      .post(`${process.env.REACT_APP_BACKEND}/api/digest`, {
+        email: data.email,
+      })
       .then(() => {
         toast.success("Thank You For Subscribing!");
         reset();

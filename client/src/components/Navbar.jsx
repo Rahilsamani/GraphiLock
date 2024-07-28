@@ -3,6 +3,7 @@ import Logo from "../assets/Logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { setUser } from "../slices/profileSlice";
+import ProfileDropdown from "./profileDropDown";
 
 const Navbar = () => {
   const userInfo = useSelector((state) => state.profile);
@@ -50,7 +51,7 @@ const Navbar = () => {
       )}
 
       {userInfo.user && (
-        <div className="flex justify-center items-center gap-3">
+        <div className="hidden md:flex justify-center items-center gap-3">
           <Link to="/">
             <p className="text-xl text-slate-800">{userInfo.user.username}</p>
           </Link>
@@ -62,6 +63,10 @@ const Navbar = () => {
           </button>
         </div>
       )}
+
+      <div className="md:hidden" >
+        <ProfileDropdown />
+      </div>
     </div>
   );
 };
