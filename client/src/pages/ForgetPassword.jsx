@@ -57,7 +57,7 @@ const ForgetPassword = () => {
             src={ForgetImage}
           />
         </div>
-        <div className="font-['Work_Sans'] mt-16 w-1/2">
+        <div className="font-['Work_Sans'] mt-16 w-[80%] md:w-1/2">
           {step === 1 ? (
             <>
               <p className="text-3xl sm:text-5xl sm:font-bold px-4 sm:px-0">

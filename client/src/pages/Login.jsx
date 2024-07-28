@@ -162,7 +162,7 @@ const Login = () => {
   }
 
   return (
-    <div className="sm:h-[30rem] sm:mt-12 flex justify-center items-center">
+    <div className="mt-12 flex justify-center items-center min-h-max">
       {blocked && <BlockedBox onClick={() => setBlocked(false)} />}
 
       {!next ? (
@@ -174,7 +174,7 @@ const Login = () => {
               src={LoginImage}
             />
           </div>
-          <div className="font-['Work_Sans'] mt-16 w-[35%]">
+          <div className="font-['Work_Sans'] mt-16 w-[80%] sm:w-[35%]">
             <p className="text-3xl sm:text-5xl sm:font-bold px-4 sm:px-0">
               Login
             </p>
@@ -227,8 +227,8 @@ const Login = () => {
           </div>
         </div>
       ) : (
-        <div className="sm:flex justify-center h-full">
-          <div className="hidden sm:grid grid-cols-4 bg-slate-200 h-full rounded-lg w-[75%] justify-items-center py-4 px-2 gap-2 ml-12">
+        <div className="sm:flex justify-center items-center h-full">
+          <div className="hidden sm:grid grid-cols-2 md:grid-cols-4 bg-slate-200 h-screen min-h-fit py-10 px-5 rounded-lg w-[75%] justify-items-center gap-2 ml-12">
             {imageData.map((imageUrl, index) => (
               <PasswordIcon
                 iteration={index}
@@ -242,7 +242,9 @@ const Login = () => {
           </div>
 
           <div className="sm:block hidden font-['Work_Sans'] mt-4 ml-16">
-            <p className="text-5xl  font-bold">Set Graphical Password</p>
+            <p className="text-5xl text-[#2691CF] font-bold">
+              Set Graphical Password
+            </p>
             <br />
             <p className="text-2xl">
               Select Images For Your Graphical Password.
@@ -277,7 +279,7 @@ const Login = () => {
           </div>
 
           <div className="sm:hidden w-full flex justify-center">
-            <div className="grid grid-cols-2 bg-slate-200 justify-items-center py-4 px-2 gap-2 w-11/12">
+            <div className="grid grid-cols-2 bg-slate-200 justify-items-center py-4 gap-2 w-11/12 rounded-lg">
               {imageData.map((imageUrl, index) => (
                 <PasswordIcon
                   iteration={index}
@@ -292,7 +294,7 @@ const Login = () => {
           </div>
 
           <div className="sm:hidden block mt-4 font-['Work_Sans'] text-center">
-            <p className="text-2xl  font-bold">Set Graphical Password</p>
+            <p className="text-[#2691CF] text-4xl  font-bold">Set Graphical Password</p>
             <br />
             <p className="text-xl">
               Select Images For Your Graphical Password.
@@ -305,12 +307,12 @@ const Login = () => {
               Image.
             </p>
 
-            <div className="flex justify-center items-end mt-10">
+            <div className="flex justify-center gap-10 items-end mt-10">
               <div>
                 <button
                   onClick={login}
                   disabled={iteration < 3}
-                  className={`transition duration-500 ease-in-out h-12 mt-4 ${
+                  className={`transition duration-500 ease-in-out h-10 ${
                     iteration < 3
                       ? "bg-gray-300 text-gray-600 cursor-not-allowed"
                       : "bg-[#2691CF] hover:bg-transparent hover:text-slate-500"
@@ -323,7 +325,7 @@ const Login = () => {
               <div>
                 <button
                   onClick={handleBackClick}
-                  className="transition duration-500 ease-in-out px-6 py-1 bg-[#2691CF] rounded-md mt-6 text-white border-2 hover:bg-transparent hover:text-slate-500 border-[#2691CF] font-bold"
+                  className="transition duration-500 ease-in-out p-2 bg-[#2691CF] text-white border-2 hover:bg-transparent hover:text-slate-500 border-[#2691CF] font-bold rounded-full"
                 >
                   <FaArrowLeft />
                 </button>

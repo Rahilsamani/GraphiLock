@@ -90,7 +90,7 @@ const Contact = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-[90px] flex justify-center items-center mt-3 transition duration-500 ease-in-out h-4 sm:h-12 bg-[#2691CF] rounded-xl sm:px-6 text-white hover:text-slate-800 border-2 hover:bg-transparent border-[#2691CF] sm:font-bold"
+            className="w-[90px] flex justify-center items-center mt-3 transition duration-500 ease-in-out h-8 py-2 bg-[#2691CF] rounded-xl sm:px-6 text-white hover:text-slate-800 border-2 hover:bg-transparent border-[#2691CF] sm:font-bold"
           >
             {loading ? "Submitting..." : "Submit"}
           </button>

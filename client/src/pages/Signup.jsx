@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { checkEmail, checkUsername } from "../utils/validation";
 import { nanoid } from "nanoid";
-import LoginImage from "../assets/login.webp";
+import SignupImage from "../assets/signup.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
@@ -189,20 +189,20 @@ const Signup = () => {
   }
 
   return (
-    <div className=" sm:h-[38rem] mt-12">
+    <div className=" sm:h-[38rem] mt-12 pr-5">
       {!next && (
-        <div className="flex justify-center h-full">
+        <div className="flex justify-center items-center h-full">
           {/* image */}
-          <div className="hidden sm:block">
+          <div className="hidden sm:block w-1/2">
             <img
-              className="transition duration-500 ease-in-out hover:scale-95 h-[50%] my-20"
+              className="transition duration-500 ease-in-out hover:scale-95 my-20"
               alt="Login"
-              src={LoginImage}
+              src={SignupImage}
             />
           </div>
           {/* signup form */}
-          <div className="font-['Work_Sans'] mt-4">
-            <p className="px-4 sm:px-0 text-3xl sm:text-5xl sm:font-bold">
+          <div className="font-['Work_Sans'] mt-4 w-[80%] md:w-[40%]">
+            <p className="px-4 sm:px-0 text-[#2691CF] font-semibold text-5xl sm:text-5xl sm:font-bold">
               Create Account
             </p>
             <br />
@@ -297,7 +297,7 @@ const Signup = () => {
       {next && (
         <div className="sm:flex h-full">
           {imageData.length > 0 && (
-            <div className="hidden sm:grid grid-cols-4 bg-slate-200 h-full rounded-lg w-[75%] justify-items-center py-4 px-2 gap-2 ml-12">
+            <div className="hidden sm:grid grid-cols-2 md:grid-cols-4 bg-slate-200 rounded-lg w-[75%] justify-items-center py-4 px-2 gap-2 ml-12">
               {getIcons()}
             </div>
           )}
@@ -308,7 +308,7 @@ const Signup = () => {
           )}
 
           {/*DESKTOP VIEW*/}
-          <div className="hidden sm:block font-['Work_Sans'] mt-4 ml-12">
+          <div className="hidden sm:block font-['Work_Sans'] mt-4 ml-12 w-1/2">
             <p className="text-[#2691CF] text-5xl font-bold">
               Set Graphical Password
             </p>
@@ -338,7 +338,7 @@ const Signup = () => {
                     }}
                     value={keyword}
                     placeholder="Try 'Cats'"
-                    className="rounded-l-md px-4 bg-gray-100 text-2xl py-1"
+                    className="rounded-l-md px-4 bg-gray-100 text-2xl py-1 w-full"
                   />
                   <button
                     onClick={searchKeyword}
@@ -367,10 +367,10 @@ const Signup = () => {
 
           {/*MOBILE VIEW*/}
           <div className="sm:hidden font-['Work_Sans'] mt-4 ml-4">
-            <p className="text-white text-2xl">Set Graphical Password</p>
+            <p className="text-[#2691CF] text-4xl font-bold">Set Graphical Password</p>
             <br />
-            <p className="text-white text-lg">Enter keyword to get images.</p>
-            <p className="text-white text-lg">
+            <p className="text-grey text-lg">Enter keyword to get images.</p>
+            <p className="text-slate-600 text-lg">
               Select{" "}
               <span className="text-green-400">
                 {getNameByNumber(iteration + 1)}
@@ -380,7 +380,7 @@ const Signup = () => {
             <br />
             {iteration === 0 && (
               <div className="align-middle items-center">
-                <p className="text-white text-lg">Type Keyword: </p>
+                <p className="text-grey text-lg">Type Keyword: </p>
                 <div className=" rounded-md flex mt-2">
                   <input
                     onChange={(event) => setKeyword(event.target.value)}
@@ -399,7 +399,7 @@ const Signup = () => {
             )}
 
             {imageData.length > 0 && (
-              <div className="mt-4 grid grid-cols-2 bg-[#3B3B3B] h-full rounded-md w-full justify-items-center py-4 gap-1 gap-x-0 -ml-2">
+              <div className="mt-4 grid grid-cols-2 bg-slate-200 h-full rounded-md w-full justify-items-center py-4 gap-1 gap-x-0 -ml-2">
                 {getIcons()}
               </div>
             )}
@@ -411,18 +411,20 @@ const Signup = () => {
               </div>
             )}
 
-            <button
-              onClick={createAccount}
-              className="transition duration-500 ease-in-out h-8 bg-[#A259FF] rounded-full px-6 w-2/3 mt-12 text-white border-2 hover:bg-transparent border-[#A259FF]"
-            >
-              {getButtonTitle()}
-            </button>
-            <button
-              onClick={handleBackClick}
-              className="transition duration-500 ease-in-out border-2 border-[#A259FF] rounded-full px-4 h-8 ml-4 hover:bg-[#A259FF]"
-            >
-              <FaArrowLeft className="text-white" />
-            </button>
+            <div className="flex justify-center items-center mt-10 gap-5">
+              <button
+                onClick={createAccount}
+                className="transition duration-500 ease-in-out h-10 bg-[#2691CF] rounded-full px-4 w-[200px] text-white hover:bg-transparent"
+              >
+                {getButtonTitle()}
+              </button>
+              <button
+                onClick={handleBackClick}
+                className="transition duration-500 ease-in-out border-2 border-[#2691CF] rounded-full px-4 h-8 hover:bg-[#2691CF]"
+              >
+                <FaArrowLeft className="text-grey" />
+              </button>
+            </div>
           </div>
         </div>
       )}
